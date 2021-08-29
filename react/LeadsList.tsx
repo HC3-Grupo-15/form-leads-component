@@ -11,12 +11,12 @@ type Lead = {
   dateBecomeClient: string
 }
 
+const api = axios.create({
+  baseURL: 'https://stenioas--hiringcoders202115.myvtex.com',
+})
+
 export default function LeadsList() {
   const [listLeads, setListLeads] = useState([])
-
-  const api = axios.create({
-    baseURL: 'https://stenioas--hiringcoders202115.myvtex.com',
-  })
 
   useEffect(() => {
     api
