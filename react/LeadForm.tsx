@@ -2,15 +2,13 @@ import React, { FormEvent, useState } from "react";
 import axios from "axios";
 import { useCssHandles } from 'vtex.css-handles';
 
-interface LeadFormProps {}
-
 const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered', 'wrapper', 'ContainerInput', 'label', 'button', 'buttonSubmit', 'paragraph', 'message'] as const
 
-const LeadForm: StorefrontFunctionComponent<LeadFormProps> = ({ }) => {
+const LeadForm = () => {
 
   const api = axios.create({
     //baseURL: "https://cbrdqaqq92.execute-api.sa-east-1.amazonaws.com"
-    baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
+    baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
   })
 
 	const [userName, setUserName] = useState("");
@@ -20,7 +18,6 @@ const LeadForm: StorefrontFunctionComponent<LeadFormProps> = ({ }) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-      console.log(telephone)
 			const response = await api.post("/leads", 
       {
         name: userName,

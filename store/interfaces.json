@@ -1,5 +1,8 @@
 {
   "lead-form": {
     "component": "LeadForm"
+  },
+  "leads-list": {
+    "component": "LeadsList"
   }
 }
