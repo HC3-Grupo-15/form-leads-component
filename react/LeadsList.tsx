@@ -4,40 +4,76 @@ import axios from "axios";
 
 
 // const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered']
+interface Client{
+  id: string,
+  category: string,
+  name: string,
+  email: string,
+  phoneNumber: string,
+  dateBecameLead: string,
+  dateBecomeClient: string
+}
+
+
 
 const api = axios.create({
-  baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
+  baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
 })
 
-const LeadsList = () => {
+const LeadsList =  () => {
 
-  const [list, setList] = useState(Array);
-  let lista = [];
+  const [listLeads, setListLeads] = useState(Array());
+  let lista;
 
   //POR ALGUM MOTIVO NÃO ESTÁ SETANDO O LIST DEPOIS DE FAZER A REQUISIÇÃO
   //o array LISTA está recebendo os dados corretos (conforme console), porém não entra no setList
-  useEffect(() => {
+  useEffect( () => {
     let mounted = true;
     api.get("/leads")
     .then(res => {
       lista = res.data;
+      console.log(lista)
       if(mounted){
-        setList(lista);
+        console.log(lista.Items);
+        setListLeads(lista.Items);
       }
-      console.log(lista.Items);
-      console.log(list);
     })
     .catch((err) => {
       console.error(err);
     });
   }, []);
+  console.log(listLeads)
+  // const handles = useCssHandles(CSS_HANDLES)
 
-//   const handles = useCssHandles(CSS_HANDLES)
+  const renderItems = () => {
+    return listLeads.map((item:Client, index:number) => {
+      return (
+          <tr key={index}>
+            <td>{item.id}</td>
+            <td>{item.category}</td>
+            <td>{item.name}</td>
+            <td>{item.email}</td>
+            <td>{item.phoneNumber}</td>
+          </tr>
+      )
+    })
+  }
+
+  const renderVazio = () => {
+    return (
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        )
+      }
 
   return (
     <>
       <h1>Leads List</h1>
-      
       {/* Depois de completar o setList, necessário map para exibir leads */}
       <table width="90%">
         <thead>
@@ -50,27 +86,7 @@ const LeadsList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td align="center">073219834</td>
-            <td align="center">Client</td>
-            <td align="center">User 1</td>
-            <td align="center">user1@gmail.com</td>
-            <td align="center">+554892265-6354</td>
-          </tr>
-          <tr>
-            <td align="center">54351324</td>
-            <td align="center">Lead</td>
-            <td align="center">User 2</td>
-            <td align="center">user2@gmail.com</td>
-            <td align="center">+551143265-9341</td>
-          </tr>
-          <tr>
-            <td align="center">75166741</td>
-            <td align="center">Client</td>
-            <td align="center">User 3</td>
-            <td align="center">user3@gmail.com</td>
-            <td align="center">+551265405-6734</td>
-          </tr>
+          {listLeads !== [] ? renderItems : renderVazio}
         </tbody>
       </table>
     </>

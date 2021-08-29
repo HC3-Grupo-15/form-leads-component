@@ -8,7 +8,7 @@ const LeadForm = () => {
 
   const api = axios.create({
     //baseURL: "https://cbrdqaqq92.execute-api.sa-east-1.amazonaws.com"
-    baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
+    baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
   })
 
 	const [userName, setUserName] = useState("");
