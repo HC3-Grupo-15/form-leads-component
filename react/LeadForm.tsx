@@ -1,15 +1,16 @@
 import React, { FormEvent, useState } from "react";
 import axios from "axios";
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles } from 'vtex.css-handles';
 
 interface LeadFormProps {}
 
-const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered']
+const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered', 'wrapper', 'ContainerInput', 'label', 'button', 'buttonSubmit', 'paragraph', 'message'] as const
 
 const LeadForm: StorefrontFunctionComponent<LeadFormProps> = ({ }) => {
 
   const api = axios.create({
-    baseURL: "https://cbrdqaqq92.execute-api.sa-east-1.amazonaws.com"
+    //baseURL: "https://cbrdqaqq92.execute-api.sa-east-1.amazonaws.com"
+    baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
   })
 
 	const [userName, setUserName] = useState("");
@@ -19,6 +20,7 @@ const LeadForm: StorefrontFunctionComponent<LeadFormProps> = ({ }) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+      console.log(telephone)
 			const response = await api.post("/leads", 
       {
         name: userName,
@@ -47,31 +49,51 @@ const LeadForm: StorefrontFunctionComponent<LeadFormProps> = ({ }) => {
 
   return (
 
-    <div className={`${handles.container} t-heading-2 fw3 w-100 c-muted-1`}>
-      {!hasRegistered ? (
-        <>
-        <div className={`${handles.title} db tc`}> Receba promoções! </div>
-        <form onSubmit={handleSubmit}>
-          <label>Nome</label>
-          <input type="text" value={userName} onChange={(event) => setUserName(event.target.value)} required placeholder="Digite seu nome" />
-          <label>Email</label>
-          <input type="email" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} required placeholder="Digite seu e-mail" />
-          <label>Telefone</label>
-          <input type="tel" value={telephone} onChange={(event) => setTelephone(event.target.value)} required placeholder="Digite seu telefone" />
-          <button type="submit" onClick={() => {handleRegister}} >Enviar</button>
-        </form>
-        </>
-      ) : (
-      <div className={`${handles.container} t-heading-2 fw3 w-100 c-muted-1`}>
-						<h3>Seu e-mail foi cadastrado com sucesso!</h3>
-						<p>
-							A partir de agora você receberá as novidades e ofertas exclusivas.
-						</p>
-						<button type="button" onClick={handleRegister}>
-							Cadastrar novo e-mail
-						</button>
-					</div>
-				)}
+    <div className={`${handles.container}`}>
+      <div className={`${handles.wrapper}`}>
+        {!hasRegistered ? (
+          <>
+            <div className={`${handles.title}`}> Receba promoções! </div>
+            <form className={`${handles.form}`} onSubmit={handleSubmit}>
+
+              <div className={`${handles.ContainerInput}`}>
+                <label className={`${handles.label}`}>
+                  Nome:
+                  <input className={`${handles.input}`} type="text" value={userName} onChange={(event) => setUserName(event.target.value)} required placeholder="Digite seu nome" />
+                </label>
+              </div>
+
+              <div className={`${handles.ContainerInput}`}>
+                <label className={`${handles.label}`}>
+                  Email:
+                  <input className={`${handles.input}`} type="email" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} required placeholder="Digite seu e-mail" />
+                </label>
+              </div>
+
+              <div className={`${handles.ContainerInput}`}>
+                <label className={`${handles.label}`}>
+                  Telefone:
+                  <input className={`${handles.input}`} type="tel" value={telephone} onChange={(event) => setTelephone(event.target.value)} required placeholder="Digite seu telefone" />
+                </label>
+              </div>
+
+              <div className={`${handles.ContainerInput}`}>
+                <button className={`${handles.buttonSubmit}`} type="submit" onClick={() => {handleRegister}} >Enviar</button>
+              </div>
+            </form>
+          </>
+        ) : (
+        <div className={`${handles.registered}`}>
+              <div className={`${handles.massage}`}>Seu e-mail foi cadastrado com sucesso!</div >
+              <p className={`${handles.paragraph}`}>
+                A partir de agora você receberá as novidades e ofertas exclusivas.
+              </p>
+              <button className={`${handles.button}`} type="button" onClick={handleRegister}>
+                Cadastrar novo e-mail
+              </button>
+            </div>
+          )}
+        </div>
     </div>
   )
 }
