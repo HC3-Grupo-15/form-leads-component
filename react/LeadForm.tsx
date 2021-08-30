@@ -2,13 +2,13 @@ import React, { FormEvent, useState } from "react";
 import axios from "axios";
 import { useCssHandles } from 'vtex.css-handles';
 
-const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered', 'wrapper', 'ContainerInput', 'label', 'button', 'buttonSubmit', 'paragraph', 'message'] as const
+const CSS_HANDLES = ['subtitle', 'container', 'title', 'form', 'input', 'button', 'registered', 'wrapper', 'ContainerInput', 'label', 'button', 'buttonSubmit', 'paragraph', 'message'] as const
 
 const LeadForm = () => {
 
   const api = axios.create({
     //baseURL: "https://cbrdqaqq92.execute-api.sa-east-1.amazonaws.com"
-    baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
+    baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
   })
 
 	const [userName, setUserName] = useState("");
@@ -50,7 +50,8 @@ const LeadForm = () => {
       <div className={`${handles.wrapper}`}>
         {!hasRegistered ? (
           <>
-            <div className={`${handles.title}`}> Receba promoções! </div>
+            <div className={`${handles.title}`}> estamos aqui para o que precisar! </div>
+            <p className={`${handles.subtitle}`}> deixe seus dados com a gente que entraremos em contato. </p>
             <form className={`${handles.form}`} onSubmit={handleSubmit}>
 
               <div className={`${handles.ContainerInput}`}>

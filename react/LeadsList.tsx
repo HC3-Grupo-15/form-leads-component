@@ -17,7 +17,7 @@ interface Client{
 
 
 const api = axios.create({
-  baseURL: "https://juliabrz--hiringcoders202115.myvtex.com"
+  baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
 })
 
 const LeadsList =  () => {
@@ -25,16 +25,14 @@ const LeadsList =  () => {
   const [listLeads, setListLeads] = useState(Array());
   let lista;
 
-  //POR ALGUM MOTIVO NÃO ESTÁ SETANDO O LIST DEPOIS DE FAZER A REQUISIÇÃO
-  //o array LISTA está recebendo os dados corretos (conforme console), porém não entra no setList
   useEffect( () => {
     let mounted = true;
     api.get("/leads")
     .then(res => {
       lista = res.data;
-      console.log(lista)
+      console.log("1",lista)
       if(mounted){
-        console.log(lista.Items);
+        console.log("2",lista.Items);
         setListLeads(lista.Items);
       }
     })
@@ -42,7 +40,8 @@ const LeadsList =  () => {
       console.error(err);
     });
   }, []);
-  console.log(listLeads)
+  console.log("3",listLeads)
+  
   // const handles = useCssHandles(CSS_HANDLES)
 
   const renderItems = () => {
@@ -74,7 +73,6 @@ const LeadsList =  () => {
   return (
     <>
       <h1>Leads List</h1>
-      {/* Depois de completar o setList, necessário map para exibir leads */}
       <table width="90%">
         <thead>
           <tr>
@@ -86,7 +84,7 @@ const LeadsList =  () => {
           </tr>
         </thead>
         <tbody>
-          {listLeads !== [] ? renderItems : renderVazio}
+          {listLeads !== [] ? renderItems() : renderVazio()}
         </tbody>
       </table>
     </>
