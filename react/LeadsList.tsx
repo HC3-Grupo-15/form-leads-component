@@ -1,94 +1,66 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import { useCssHandles } from 'vtex.css-handles'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useCssHandles } from 'vtex.css-handles';
+
+const CSS_HANDLES = ['leadsTable', 'tableItem', 'tableTitle'] as const
 
 
-// const CSS_HANDLES = ['container', 'title', 'form', 'input', 'button', 'registered']
-interface Client{
-  id: string,
-  category: string,
-  name: string,
-  email: string,
-  phoneNumber: string,
-  dateBecameLead: string,
+type Lead = {
+  id: string
+  category: string
+  name: string
+  email: string
+  phoneNumber: string
+  dateBecameLead: string
   dateBecomeClient: string
 }
 
-
-
 const api = axios.create({
-  baseURL: "https://briitogabriel--hiringcoders202115.myvtex.com"
+  baseURL: 'https://briitogabriel--hiringcoders202115.myvtex.com',
 })
 
-const LeadsList =  () => {
+export default function LeadsList() {
+  const [listLeads, setListLeads] = useState([])
 
-  const [listLeads, setListLeads] = useState(Array());
-  let lista;
+  useEffect(() => {
+    api
+      .get('leads')
+      .then(res => {
+        setListLeads(res.data.Items)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
 
-  useEffect( () => {
-    let mounted = true;
-    api.get("/leads")
-    .then(res => {
-      lista = res.data;
-      console.log("1",lista)
-      if(mounted){
-        console.log("2",lista.Items);
-        setListLeads(lista.Items);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  }, []);
-  console.log("3",listLeads)
-  
-  // const handles = useCssHandles(CSS_HANDLES)
-
-  const renderItems = () => {
-    return listLeads.map((item:Client, index:number) => {
-      return (
-          <tr key={index}>
-            <td>{item.id}</td>
-            <td>{item.category}</td>
-            <td>{item.name}</td>
-            <td>{item.email}</td>
-            <td>{item.phoneNumber}</td>
-          </tr>
-      )
-    })
-  }
-
-  const renderVazio = () => {
-    return (
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-        )
-      }
+  const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <>
-      <h1>Leads List</h1>
-      <table width="90%">
+      <table className={handles.leadsTable}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>TYPE</th>
-            <th>NAME</th>
-            <th>E-MAIL</th>
-            <th>PHONE NUMBER</th>
+            <th className={handles.tableTitle}>TIPO</th>
+            <th className={handles.tableTitle}>NOME</th>
+            <th className={handles.tableTitle}>E-MAIL</th>
+            <th className={handles.tableTitle}>TELEFONE</th>
           </tr>
         </thead>
         <tbody>
-          {listLeads !== [] ? renderItems() : renderVazio()}
+          {listLeads
+            ? listLeads.map((item: Lead, index: number) => {
+                return (
+                  <tr key={index}>
+                    <td className={handles.tableItem}>{item.category}</td>
+                    <td className={handles.tableItem}>{item.name}</td>
+                    <td className={handles.tableItem}>{item.email}</td>
+                    <td className={handles.tableItem}>{item.phoneNumber}</td>
+                  </tr>
+                )
+              })
+            : 'Nenhum registro encontrado!'}
         </tbody>
       </table>
     </>
   )
 }
-
-export default LeadsList
