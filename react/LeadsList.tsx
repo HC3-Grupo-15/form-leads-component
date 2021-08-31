@@ -20,7 +20,7 @@ type Lead = {
 }
 
 const api = axios.create({
-  baseURL: 'https://juliabrz--hiringcoders202115.myvtex.com',
+  baseURL: 'https://corebiz--hiringcoders202115.myvtex.com',
 })
 
 export default function LeadsList() {
