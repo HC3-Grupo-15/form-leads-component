@@ -1,0 +1,6 @@
+{
+    "admin.app.leads": {
+      "component": "LeadsListAdmin",
+      "path": "/admin/app/leadslist"
+    }
+  }

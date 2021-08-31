@@ -1,14 +1,15 @@
 {
-  "vendor": "hiringcoders202115",
-  "name": "form-leads",
+  "vendor": "appliancetheme",
+  "name": "admin-sandbox",
   "version": "0.0.0",
-  "title": "form-leads",
+  "title": "hiringcoders202115-api",
   "description": "formulário para leads de clientes",
   "builders": {
     "react": "3.x",
     "messages": "1.x",
     "docs": "0.x",
-    "store": "0.x"
+    "store": "0.x",
+    "admin": "0.x"
   },
   "dependencies": {
     "vtex.styleguide": "9.x",
