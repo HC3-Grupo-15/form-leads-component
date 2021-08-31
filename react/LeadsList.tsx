@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useCssHandles } from 'vtex.css-handles';
+import { useCssHandles } from 'vtex.css-handles'
 
-const CSS_HANDLES = ['leadsTable', 'tableItem', 'tableTitle'] as const
-
+const CSS_HANDLES = [
+  'leadsTable',
+  'tableItem',
+  'tableTitle',
+  'tableRow',
+] as const
 
 type Lead = {
   id: string
@@ -25,7 +29,7 @@ export default function LeadsList() {
   useEffect(() => {
     api
       .get('leads')
-      .then(res => {
+      .then((res) => {
         setListLeads(res.data.Items)
       })
       .catch((err) => {
@@ -39,7 +43,7 @@ export default function LeadsList() {
     <>
       <table className={handles.leadsTable}>
         <thead>
-          <tr>
+          <tr className={handles.tableRow}>
             <th className={handles.tableTitle}>TIPO</th>
             <th className={handles.tableTitle}>NOME</th>
             <th className={handles.tableTitle}>E-MAIL</th>
@@ -50,7 +54,7 @@ export default function LeadsList() {
           {listLeads
             ? listLeads.map((item: Lead, index: number) => {
                 return (
-                  <tr key={index}>
+                  <tr key={index} className={handles.tableRow}>
                     <td className={handles.tableItem}>{item.category}</td>
                     <td className={handles.tableItem}>{item.name}</td>
                     <td className={handles.tableItem}>{item.email}</td>
